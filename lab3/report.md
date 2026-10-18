@@ -68,7 +68,7 @@
 |---|---:|---|
 | calculateDiscount | 6 | Pass |
 | validateQuantity | 7 | Pass |
-| getShippingCost | 4 | Pass |
+| getShippingCost | 3 | Pass |
 
 ---
 
