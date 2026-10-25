@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "a3ca636b-fe6a-4300-ae27-18bc7b1f9ecc",
+    "name": "Lab4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48849106",
+    "_collection_link": "https://go.postman.co/collection/48849106-a3ca636b-fe6a-4300-ae27-18bc7b1f9ecc?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01 GET with Params",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();\n\npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response is JSON\", function () {\n    const contentType = pm.response.headers.get(\"Content-Type\");\n    pm.expect(contentType).to.include(\"application/json\");\n});\n\npm.test(\"Name is Yaroslav\", function () {\n    pm.expect(json.args.name).to.eql(\"Yaroslav\");\n});\n\npm.test(\"Role is student\", function () {\n    pm.expect(json.args.role).to.eql(\"student\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/get?name=Yaroslav&role=student",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Yaroslav"
+            },
+            {
+              "key": "role",
+              "value": "student"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 POST JSON",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();\n\npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response contains product\", function () {\n    pm.expect(json.data).to.have.property(\"product\");\n});\n\npm.test(\"Product is Backpack\", function () {\n    pm.expect(json.data.product).to.eql(\"Backpack\");\n});\n\npm.test(\"Quantity is 2\", function () {\n    pm.expect(json.data.quantity).to.eql(2);\n});\n\npm.test(\"Quantity is number\", function () {\n    pm.expect(json.data.quantity).to.be.a(\"number\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"product\": \"Backpack\",\n    \"quantity\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/post",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Negative - 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();\n\npm.test(\"Status code is 404\", function () {\n    pm.response.to.have.status(404);\n});\n\npm.test(\"Response status is 404\", function () {\n    pm.expect(json.status).to.eql(404);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/404",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "status",
+            "404"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://postman-echo.com"
+    }
+  ]
+}
