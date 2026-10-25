@@ -112,10 +112,7 @@ describe('getShippingCost', () => {
         const notFiniteNumber = NaN;
         const errorMessage = 'Total must be a non-negative number';
 
-        const resultNegativeNumber = getShippingCost(negativeNumber);
-        const resultNotFiniteNumber = getShippingCost(notFiniteNumber);
-
-        expect(resultNegativeNumber).toThrow(errorMessage);
-        expect(resultNotFiniteNumber).toThrow(errorMessage);
+        expect(() => getShippingCost(negativeNumber)).toThrow(errorMessage);
+        expect(() => getShippingCost(notFiniteNumber)).toThrow(errorMessage);
     })
 });
